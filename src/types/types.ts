@@ -19,7 +19,9 @@ export type Match = {
   end?: Date;
 };
 
-export type tournament = {
+export type Tournament = {
+  name: string;
+  slug: string;
   id: number;
   tournamentType: "bracket" | "allVsAll";
   teams: Team[];

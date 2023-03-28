@@ -1,27 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { teams } from "~/data/data";
 import { LeaderboardEntry, Player, Team } from "~/types/types";
-
-const players: Player[] = [
-  { id: 1, name: "John Doe" },
-  { id: 2, name: "Jane Smith" },
-  { id: 3, name: "Bob Johnson" },
-  { id: 4, name: "Alice Lee" },
-];
-
-const teams: Team[] = [
-  {
-    name: "Team A",
-    slug: "team-a",
-    player1: players[0] ?? null,
-    player2: players[1] ?? null,
-  },
-  {
-    name: "Team B",
-    slug: "team-b",
-    player1: players[2] ?? null,
-    player2: players[3] ?? null,
-  },
-];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const leaderBoardEntries: LeaderboardEntry[] = [
@@ -35,7 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       goalsAgainst: 99,
     },
     {
-      team: teams[0]!,
+      team: teams[1]!,
       point: 43,
       won: 10,
       draw: 0,
