@@ -41,12 +41,13 @@ const TournamentEntry = ({
       }`}
     >
       <div>
-        <h3 className="text-lg font-medium">
-          {goals == 10 ? "👑 " : ""}
+        <div className="flex items-center text-lg font-medium">
+          {goals === 10 && <h3 className="mr-2 mb-1 text-2xl">👑</h3>}
           {team.name}
-        </h3>
-        <p className="text-gray-500">{team.player1?.name}</p>
-        <p className="text-gray-500">{team.player2?.name}</p>
+        </div>
+        <p className="text-sm text-base-500">
+          {team.player1?.name}, {team.player2?.name}
+        </p>
       </div>
       <div>
         <p className="text-right text-sm">score</p>
@@ -58,6 +59,8 @@ const TournamentEntry = ({
     </div>
   </>
 );
+
+const handleMatchClick = (matchId: number) => {};
 
 const BracketTournament = ({
   slug,
@@ -89,11 +92,15 @@ const BracketTournament = ({
       {tournament === undefined && (
         <p className="text-red-normal">No tournament found for this slug</p>
       )}
+
       <div className="grid h-full grid-cols-3 gap-2">
         <div id="round_1" className="flex flex-col justify-between gap-10">
           Group rounds
-          {tournament?.matches.map((m) => (
-            <div className="flex grow flex-col justify-center gap-4  p-2">
+          {tournament?.rounds[0].matches.map((m) => (
+            <div
+              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80"
+              onClick={() => handleMatchClick(m.id)}
+            >
               <div className="flex flex-col gap-2">
                 <TournamentEntry
                   team={m.team1}
@@ -111,45 +118,47 @@ const BracketTournament = ({
         </div>
         <div id="round_quater_finals" className="flex flex-col gap-2">
           Semi final
-          <div className="flex grow flex-col justify-center gap-4  p-2">
-            <div className="rounded border border-base-300 bg-base-0/40 p-1 backdrop-blur-sm">
-              <h3 className="text-lg font-medium">Winner of match 1</h3>
-              <p className="text-gray-500">?</p>
-              <p className="text-gray-500">?</p>
+          {tournament?.rounds[1].matches.map((m) => (
+            <div
+              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80"
+              onClick={() => handleMatchClick(m.id)}
+            >
+              <div className="flex flex-col gap-2">
+                <TournamentEntry
+                  team={m.team1}
+                  goals={m.team1Goals}
+                  date={m.end}
+                />
+                <TournamentEntry
+                  team={m.team2}
+                  goals={m.team2Goals}
+                  date={m.end}
+                />
+              </div>
             </div>
-            <div className="rounded border border-base-300 bg-base-0/40 p-1 backdrop-blur-sm">
-              <h3 className="text-lg font-medium">Winner of match 2</h3>
-              <p className="text-gray-500">?</p>
-              <p className="text-gray-500">?</p>
-            </div>
-          </div>
-          <div className="flex grow flex-col justify-center gap-4  p-2">
-            <div className="rounded border border-base-300 bg-base-0/40 p-1 backdrop-blur-sm">
-              <h3 className="text-lg font-medium">Winner of match 3</h3>
-              <p className="text-gray-500">?</p>
-              <p className="text-gray-500">?</p>
-            </div>
-            <div className="rounded border border-base-300 bg-base-0/40 p-1 backdrop-blur-sm">
-              <h3 className="text-lg font-medium">Winner of match 4</h3>
-              <p className="text-gray-500">?</p>
-              <p className="text-gray-500">?</p>
-            </div>
-          </div>
+          ))}
         </div>
         <div id="round_semi_finals" className="flex flex-col gap-2">
           Final
-          <div className="flex grow flex-col justify-center gap-4  p-2">
-            <div className="rounded border border-base-300 bg-base-0/40 p-1 backdrop-blur-sm">
-              <h3 className="text-lg font-medium">Finalist 1</h3>
-              <p className="text-gray-500">?</p>
-              <p className="text-gray-500">?</p>
+          {tournament?.rounds[2].matches.map((m) => (
+            <div
+              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80"
+              onClick={() => handleMatchClick(m.id)}
+            >
+              <div className="flex flex-col gap-2">
+                <TournamentEntry
+                  team={m.team1}
+                  goals={m.team1Goals}
+                  date={m.end}
+                />
+                <TournamentEntry
+                  team={m.team2}
+                  goals={m.team2Goals}
+                  date={m.end}
+                />
+              </div>
             </div>
-            <div className="rounded border border-base-300 bg-base-0/40 p-1 backdrop-blur-sm">
-              <h3 className="text-lg font-medium">Finalist 2</h3>
-              <p className="text-gray-500">?</p>
-              <p className="text-gray-500">?</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

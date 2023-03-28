@@ -11,6 +11,7 @@ export type Team = {
 };
 
 export type Match = {
+  id: number;
   team1: Team;
   team2: Team;
   team1Goals: number;
@@ -24,7 +25,6 @@ export type Tournament = {
   id: number;
   tournamentType: "bracket" | "allVsAll";
   teams: Team[];
-  rounds: tournamentRound[];
   matches: Match[];
   winner: Team | null;
 };

@@ -33,7 +33,7 @@ const teamNames = [
 export const teams: Team[] = teamNames
   .map((name, i) => {
     let player1 = players[i];
-    let player2 = players[i + 1 * 2];
+    let player2 = players[15 - i];
 
     if (player1 !== undefined || player2 !== undefined) {
       return {
@@ -47,62 +47,86 @@ export const teams: Team[] = teamNames
   .filter((team) => team !== undefined) as Team[];
 
 const selectedTeams = teams.slice(0, 4);
+const shuffledTeams = selectedTeams.sort((a, b) => 0.5 - Math.random());
 
-const tournamentName = "Galactic Showdown";
 const today = new Date();
 const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+const firstRoundMatches: Match[] = selectedTeams.map((team, i) => {
+  const team2Goals = 10;
+  const team1Goals = Math.min(Math.floor(Math.random() * 11), 9);
+  const winner = Math.round(Math.random()); // Randomly pick 0 or 1
+  const otherTeam = teams[(i + 1) % 4];
+  const matchDate = new Date(
+    lastWeek.getTime() + Math.random() * (today.getTime() - lastWeek.getTime())
+  );
+  return {
+    id: i,
+    team1: winner === 0 ? team : otherTeam,
+    team2: winner === 1 ? team : otherTeam,
+    team1Goals: winner === 0 ? team1Goals : team2Goals,
+    team2Goals: winner === 1 ? team1Goals : team2Goals,
+    tournamentId: 1,
+    end: matchDate,
+  } as Match;
+});
+
+const firstRoundWinners = firstRoundMatches.filter((match) =>
+  match.team1Goals === 10 ? match.team1 : match.team2
+);
+
+const secondRoundMatches: Match[] = [
+  {
+    id: 999,
+    team1: firstRoundWinners[0].team1,
+    team2: firstRoundWinners[1].team2,
+    team1Goals: 10,
+    team2Goals: 1,
+  } as Match,
+  {
+    id: 999,
+    team1: firstRoundWinners[2].team1,
+    team2: firstRoundWinners[3].team2,
+    team1Goals: 0,
+    team2Goals: 10,
+  } as Match,
+];
+
+const secondRoundWinners = secondRoundMatches.filter((match) =>
+  match.team1Goals === 10 ? match.team1 : match.team2
+);
+
+const thirdRoundMatches: Match[] = [
+  {
+    id: 999,
+    team1: secondRoundWinners[0].team1,
+    team2: secondRoundWinners[1].team2,
+    team1Goals: 10,
+    team2Goals: 1,
+  } as Match,
+];
 
 export const tournaments: Tournament[] = [
   {
     id: 1,
-    name: "Galactic Showdown",
+    name: "Galactic Showdown (16 player bracket tournament)",
     slug: `tournament-${"Galactic Showdown".toLowerCase().replace(/ /g, "-")}`,
     tournamentType: "bracket",
     teams: teams,
-    matches: selectedTeams.map((team, i) => {
-      const team2Goals = 10;
-      const team1Goals = Math.min(Math.floor(Math.random() * 11), 9);
-      const winner = Math.round(Math.random()); // Randomly pick 0 or 1
-      const otherTeam = selectedTeams[(i + 1) % 4];
-      const matchDate = new Date(
-        lastWeek.getTime() +
-          Math.random() * (today.getTime() - lastWeek.getTime())
-      );
-      return {
-        team1: winner === 0 ? team : otherTeam,
-        team2: winner === 1 ? team : otherTeam,
-        team1Goals: winner === 0 ? team1Goals : team2Goals,
-        team2Goals: winner === 1 ? team1Goals : team2Goals,
+    rounds: [
+      {
         tournamentId: 1,
-        end: matchDate,
-      } as Match;
-    }),
-    winner: null,
-  } as Tournament,{
-    id: 2,
-    name: "Rebel Alliance Cup",
-    slug: `tournament-${"Rebel Alliance Cup".toLowerCase().replace(/ /g, "-")}`,
-    tournamentType: "bracket",
-    teams: teams,
-    matches: selectedTeams.map((team, i) => {
-      const team2Goals = 10;
-      const team1Goals = Math.min(Math.floor(Math.random() * 11), 9);
-      const winner = Math.round(Math.random()); // Randomly pick 0 or 1
-      const otherTeam = selectedTeams[(i + 1) % 4];
-      const matchDate = new Date(
-        lastWeek.getTime() +
-          Math.random() * (today.getTime() - lastWeek.getTime())
-      );
-      return {
-        team1: winner === 0 ? team : otherTeam,
-        team2: winner === 1 ? team : otherTeam,
-        team1Goals: winner === 0 ? team1Goals : team2Goals,
-        team2Goals: winner === 1 ? team1Goals : team2Goals,
+        matches: firstRoundMatches,
+      },
+      {
         tournamentId: 1,
-        end: matchDate,
-      } as Match;
-    }),
+        matches: secondRoundMatches,
+      },
+      {
+        tournamentId: 1,
+        matches: thirdRoundMatches,
+      },
+    ],
     winner: null,
   } as Tournament,
-  }
 ];
