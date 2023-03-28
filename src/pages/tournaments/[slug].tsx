@@ -1,16 +1,24 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import BracketTournament from "~/components/BracketTournament";
 import RootLayout from "~/components/layout";
 
 const Tournament = () => {
   const router = useRouter();
   const { slug } = router.query;
+  const [isReady, setReady] = useState(false);
+
+  useEffect(() => {
+    if (slug) {
+      setReady(true);
+    }
+  }, [router]);
 
   return (
     <RootLayout>
-      <BracketTournament
-        slug={typeof slug === "string" ? slug : ""}
-      ></BracketTournament>
+      <main className="container mx-auto">
+        {isReady && <BracketTournament slug={slug}></BracketTournament>}
+      </main>
     </RootLayout>
   );
 };

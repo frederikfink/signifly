@@ -49,24 +49,60 @@ export const teams: Team[] = teamNames
 const selectedTeams = teams.slice(0, 4);
 
 const tournamentName = "Galactic Showdown";
+const today = new Date();
+const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 
 export const tournaments: Tournament[] = [
   {
     id: 1,
-    name: tournamentName,
-    slug: `tournament-${tournamentName.toLowerCase().replace(/ /g, "-")}`,
+    name: "Galactic Showdown",
+    slug: `tournament-${"Galactic Showdown".toLowerCase().replace(/ /g, "-")}`,
     tournamentType: "bracket",
     teams: teams,
     matches: selectedTeams.map((team, i) => {
+      const team2Goals = 10;
+      const team1Goals = Math.min(Math.floor(Math.random() * 11), 9);
+      const winner = Math.round(Math.random()); // Randomly pick 0 or 1
       const otherTeam = selectedTeams[(i + 1) % 4];
+      const matchDate = new Date(
+        lastWeek.getTime() +
+          Math.random() * (today.getTime() - lastWeek.getTime())
+      );
       return {
-        team1: team,
-        team2: otherTeam,
-        team1Goals: 0,
-        team2Goals: 0,
+        team1: winner === 0 ? team : otherTeam,
+        team2: winner === 1 ? team : otherTeam,
+        team1Goals: winner === 0 ? team1Goals : team2Goals,
+        team2Goals: winner === 1 ? team1Goals : team2Goals,
         tournamentId: 1,
+        end: matchDate,
+      } as Match;
+    }),
+    winner: null,
+  } as Tournament,{
+    id: 2,
+    name: "Rebel Alliance Cup",
+    slug: `tournament-${"Rebel Alliance Cup".toLowerCase().replace(/ /g, "-")}`,
+    tournamentType: "bracket",
+    teams: teams,
+    matches: selectedTeams.map((team, i) => {
+      const team2Goals = 10;
+      const team1Goals = Math.min(Math.floor(Math.random() * 11), 9);
+      const winner = Math.round(Math.random()); // Randomly pick 0 or 1
+      const otherTeam = selectedTeams[(i + 1) % 4];
+      const matchDate = new Date(
+        lastWeek.getTime() +
+          Math.random() * (today.getTime() - lastWeek.getTime())
+      );
+      return {
+        team1: winner === 0 ? team : otherTeam,
+        team2: winner === 1 ? team : otherTeam,
+        team1Goals: winner === 0 ? team1Goals : team2Goals,
+        team2Goals: winner === 1 ? team1Goals : team2Goals,
+        tournamentId: 1,
+        end: matchDate,
       } as Match;
     }),
     winner: null,
   } as Tournament,
+  }
 ];

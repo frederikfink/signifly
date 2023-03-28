@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import RootLayout from "~/components/layout";
 import { Tournament } from "~/types/types";
 
 const Tournaments = () => {
@@ -15,12 +16,16 @@ const Tournaments = () => {
   }, []);
 
   return (
-    <>
-      <h1>List all tournaments here</h1>
-      {tournaments.map((t) => (
-        <a href={`/tournaments/${t.slug}`}>{t.name}</a>
-      ))}
-    </>
+    <RootLayout>
+      <main>
+        <h1>List all tournaments here</h1>
+        {tournaments.map((t) => (
+          <a key={t.slug} href={`/tournaments/${t.slug}`}>
+            {t.name}
+          </a>
+        ))}
+      </main>
+    </RootLayout>
   );
 };
 
