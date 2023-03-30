@@ -41,10 +41,10 @@ const TournamentEntry = ({
       }`}
     >
       <div>
-        <div className="flex items-center text-lg font-medium dark:text-base-0">
+        <h5 className="flex items-center text-lg font-medium dark:text-base-0">
           {goals === 10 && <h3 className="mr-2 mb-1 text-2xl">👑</h3>}
           {team.name}
-        </div>
+        </h5>
         <p className="text-sm text-base-500">
           {team.player1?.name}, {team.player2?.name}
         </p>

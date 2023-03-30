@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -67,8 +67,10 @@ const Team = ({
       data-testid={`team`}
       className="w-full cursor-pointer rounded border border-base-700 bg-base-800 p-4 active:scale-[90%] active:border-dashed active:opacity-80"
     >
-      <h3>Galactic Empire</h3>
-      <p className="text-sm text-base-500">Leia Organa, Mace Windu</p>
+      <h5>{team.name}</h5>
+      <p className="text-sm text-base-500">
+        {team.player1?.name}, {team.player2?.name}
+      </p>
     </div>
   );
 };
@@ -83,11 +85,13 @@ const TeamBin = ({
   accept,
   teams,
   bin,
+  maxCounter = null,
   onDrop,
 }: {
   onDrop: (bin: string, team: Team) => void;
   accept: string;
   bin: string;
+  maxCounter: number | null;
   teams: Team[];
 }) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -107,43 +111,64 @@ const TeamBin = ({
         isActive
           ? "border-dashed border-yellow-normal bg-yellow-light/10"
           : "border-base-700 bg-base-900/80"
-      } w-96 overflow-y-auto rounded-xl border p-7`}
+      } w-96 rounded-xl border p-7`}
       ref={drop}
       data-testid="dustbin"
     >
-      <h3>Teams</h3>
-      {teams.map((t) => (
-        <Team team={t} onDrop={() => onDrop(bin, t)} />
-      ))}
+      <div className="flex items-center justify-between">
+        <h5>Teams</h5>
+        {maxCounter !== null && (
+          <h5 className="font-mono text-base-500">
+            {teams.length} / {maxCounter}
+          </h5>
+        )}
+      </div>
+      <hr className="my-5 border border-base-700" />
+      <div className="flex max-h-[700px] min-h-[700px] flex-col-reverse gap-2 overflow-y-auto">
+        {teams.map((t) => (
+          <Team key={t.slug} team={t} onDrop={() => onDrop(bin, t)} />
+        ))}
+      </div>
     </div>
   );
 };
 
 const SelectTeams = () => {
-  const team1: Team = {
-    name: "galactic empire",
-    slug: "galactic-empire",
-    player1: null,
-    player2: null,
-  } as Team;
-
   const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
-  const [teams, setTeams] = useState<Team[]>([team1]);
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await fetch(`/api/teams`);
+      const data = await result.json();
+
+      setTeams(data);
+
+      if (teams == undefined) {
+        return;
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const handleOnDrop = (bin: string, team: Team) => {
-    setSelectedTeams(teams.filter((t) => t.slug !== team.slug));
-    setTeams(teams.filter((t) => t.slug !== team.slug));
+    setTeams((prevTeams) => prevTeams.filter((t) => t.slug !== team.slug));
+    setSelectedTeams((prevTeams) =>
+      prevTeams.filter((t) => t.slug !== team.slug)
+    );
 
-    if (bin == "selectedTeams") {
-      setTeams([...teams, team]);
+    if (bin == "teams") {
+      setSelectedTeams((prevTeams) => [...prevTeams, team]);
     } else {
-      setSelectedTeams([...selectedTeams, team]);
+      setTeams((prevTeams) => [...prevTeams, team]);
     }
   };
 
   return (
     <div className="grid grid-cols-2 gap-4">
       <TeamBin
+        maxCounter={null}
         key={1}
         teams={teams}
         accept={ItemTypes.Team}
@@ -151,6 +176,7 @@ const SelectTeams = () => {
         onDrop={handleOnDrop}
       />
       <TeamBin
+        maxCounter={16}
         key={2}
         teams={selectedTeams}
         accept={ItemTypes.Team}
