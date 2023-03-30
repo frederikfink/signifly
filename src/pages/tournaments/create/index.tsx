@@ -158,13 +158,15 @@ const SelectTeams = () => {
     }
 
     fetchData().catch(console.error);
-  }, [teams]);
+  }, []);
 
   const handleOnDrop = (bin: string, team: Team) => {
+    console.log(teams);
     setTeams((prevTeams) => prevTeams.filter((t) => t.slug !== team.slug));
     setSelectedTeams((prevTeams) =>
       prevTeams.filter((t) => t.slug !== team.slug)
     );
+    console.log(teams);
 
     if (bin == "teams") {
       setSelectedTeams((prevTeams) => [...prevTeams, team]);
