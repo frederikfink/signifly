@@ -1,13 +1,5 @@
 import Link from "next/link";
 import { type FunctionComponent } from "react";
-import { Inter } from "next/font/google";
-import { JetBrains_Mono } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-const jetbrainsMono = Inter({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-});
 
 interface NavLink {
   href: string;
@@ -31,9 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      className={`h-screen w-full flex-col ${inter.className} ${jetbrainsMono.className}`}
-    >
+    <div className={`h-screen w-full flex-col`}>
       <nav className="flex h-[64px] flex-col justify-center bg-base-900 text-base-0 dark:bg-base-1000">
         <ul className="container mx-auto flex items-center gap-2 px-4">
           <Link

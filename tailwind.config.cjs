@@ -6,8 +6,8 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", ...fontFamily.sans],
-        mono: ["var(--jetbrains-mono)", ...fontFamily.mono],
+        sans: ["Inter", "inter"],
+        mono: ["Jetbrains Mono", "jetbrains-mono"],
       },
     },
     colors: {
