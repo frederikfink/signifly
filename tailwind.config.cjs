@@ -7,7 +7,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
-        mono: ["JetBrains Mono"],
+        mono: ["var(--jetbrains-mono)", ...fontFamily.mono],
       },
     },
     colors: {
