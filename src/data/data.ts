@@ -52,7 +52,7 @@ const shuffledTeams = selectedTeams.sort((a, b) => 0.5 - Math.random());
 const today = new Date();
 const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-const firstRoundMatches: Match[] = selectedTeams.map((team, i) => {
+export const firstRoundMatches: Match[] = selectedTeams.map((team, i) => {
   const team2Goals = 10;
   const team1Goals = Math.min(Math.floor(Math.random() * 11), 9);
   const winner = Math.round(Math.random()); // Randomly pick 0 or 1

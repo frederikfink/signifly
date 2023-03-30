@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import BracketTournament from "~/components/BracketTournament";
 import RootLayout from "~/components/layout";
+import Match from "~/components/Match";
+import Modal from "~/components/Modal";
 
 const Tournament = () => {
   const router = useRouter();
