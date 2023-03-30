@@ -118,7 +118,13 @@ const TeamBin = ({
       <div className="flex items-center justify-between">
         <h5>Teams</h5>
         {maxCounter !== null && (
-          <h5 className="font-mono text-base-500">
+          <h5
+            className={`${
+              maxCounter === teams.length
+                ? "text-green-bright"
+                : "text-base-500"
+            } font-mono`}
+          >
             {teams.length} / {maxCounter}
           </h5>
         )}
@@ -136,6 +142,7 @@ const TeamBin = ({
 const SelectTeams = () => {
   const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
+  const maxCounter = 4;
 
   useEffect(() => {
     async function fetchData() {
@@ -166,23 +173,35 @@ const SelectTeams = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <TeamBin
-        maxCounter={null}
-        key={1}
-        teams={teams}
-        accept={ItemTypes.Team}
-        bin={"teams"}
-        onDrop={handleOnDrop}
-      />
-      <TeamBin
-        maxCounter={16}
-        key={2}
-        teams={selectedTeams}
-        accept={ItemTypes.Team}
-        bin={"selectedTeams"}
-        onDrop={handleOnDrop}
-      />
+    <div>
+      <div className="grid grid-cols-2 gap-4">
+        <TeamBin
+          maxCounter={null}
+          key={1}
+          teams={teams}
+          accept={ItemTypes.Team}
+          bin={"teams"}
+          onDrop={handleOnDrop}
+        />
+        <TeamBin
+          maxCounter={maxCounter}
+          key={2}
+          teams={selectedTeams}
+          accept={ItemTypes.Team}
+          bin={"selectedTeams"}
+          onDrop={handleOnDrop}
+        />
+      </div>
+      {selectedTeams.length === maxCounter && (
+        <div className="mt-4 flex items-center justify-center">
+          <a
+            href="/tournaments/tournament-galactic-showdown"
+            className="btn bg-green-bright"
+          >
+            Create Tournament
+          </a>
+        </div>
+      )}
     </div>
   );
 };
