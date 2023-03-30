@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply dark:bg-base-900;
-  background-color: hsla(0, 100%, 50%, 0);
   background-image: radial-gradient(
       at 40% 20%,
       hsla(28, 100%, 74%, 0.1) 0px,
@@ -16,6 +14,34 @@ body {
     radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 0.1) 0px, transparent 50%),
     radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 0.1) 0px, transparent 50%),
     radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 0.1) 0px, transparent 50%);
+}
+
+body {
+  @apply dark:bg-base-900;
+}
+
+.input {
+  @apply block w-full rounded border border-base-300 px-2.5 py-2 text-sm text-base-900 dark:border-base-700 dark:bg-base-900 dark:text-base-0 dark:placeholder-base-600;
+}
+
+.label {
+  @apply mb-1.5 block text-sm text-base-900 dark:text-base-100;
+}
+
+.btn {
+  @apply cursor-pointer rounded px-5 py-2 text-sm transition-all duration-100 hover:opacity-80 active:scale-[90%] disabled:pointer-events-none disabled:opacity-40;
+}
+
+.btn-card {
+  @apply cursor-pointer rounded-xl p-7 transition-all duration-100 hover:opacity-80 active:scale-[90%] disabled:pointer-events-none disabled:opacity-40;
+}
+
+h1 {
+  @apply text-5xl text-base-900 dark:text-base-0;
+}
+
+h3 {
+  @apply text-2xl text-base-900 dark:text-base-0;
 }
 
 h1,

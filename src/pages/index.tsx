@@ -11,9 +11,9 @@ const inter = Inter({
 const Home: NextPage = () => {
   return (
     <RootLayout>
-      <main className={`${inter.variable} container mx-auto px-4 font-sans`}>
+      <main className="container mx-auto px-4">
         <div className="my-32">
-          <h1 className="text-5xl ">
+          <h1>
             Welcome, to the
             <br />
             Signifly foosball dashboard

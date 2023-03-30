@@ -17,8 +17,16 @@ const Tournaments = () => {
 
   return (
     <RootLayout>
-      <main>
-        <h1>List all tournaments here</h1>
+      <main className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <h1 className="my-32">Tournaments</h1>
+          <a
+            href="/tournaments/create"
+            className="btn bg-green-bright uppercase text-base-0"
+          >
+            Create
+          </a>
+        </div>
         {tournaments.map((t) => (
           <a key={t.slug} href={`/tournaments/${t.slug}`}>
             {t.name}

@@ -19,18 +19,25 @@ export type Match = {
   end?: Date;
 };
 
-export type Tournament = {
+export type BracketTournament = {
   name: string;
   slug: string;
   id: number;
-  tournamentType: "bracket" | "allVsAll";
+  teams: Team[];
+  rounds: TournamentRound[];
+  winner: Team | null;
+};
+
+export type AllvsAllTournament = {
+  name: string;
+  slug: string;
+  id: number;
   teams: Team[];
   matches: Match[];
   winner: Team | null;
 };
 
-export type tournamentRound = {
-  tournamentId: number;
+export type TournamentRound = {
   matches: Match[];
 };
 

@@ -42,7 +42,7 @@ export default function RootLayout({
           </li>
         </ul>
       </nav>
-      <main className="grow overflow-y-auto">{children}</main>
+      <main className="h-full grow overflow-y-auto">{children}</main>
     </div>
   );
 }

@@ -36,12 +36,12 @@ const TournamentEntry = ({
     <div
       className={`flex items-center justify-between rounded border py-2 px-4 backdrop-blur-sm ${
         goals == 10
-          ? "border-yellow-normal bg-yellow-light"
-          : "border-base-300 bg-base-0/40"
+          ? "border-yellow-normal bg-yellow-light dark:bg-yellow-normal/20"
+          : "border-base-300 bg-base-0/40 dark:border-base-700 dark:bg-base-900/50"
       }`}
     >
       <div>
-        <div className="flex items-center text-lg font-medium">
+        <div className="flex items-center text-lg font-medium dark:text-base-0">
           {goals === 10 && <h3 className="mr-2 mb-1 text-2xl">👑</h3>}
           {team.name}
         </div>
@@ -98,7 +98,7 @@ const BracketTournament = ({
           Group rounds
           {tournament?.rounds[0].matches.map((m) => (
             <div
-              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80"
+              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
               onClick={() => handleMatchClick(m.id)}
             >
               <div className="flex flex-col gap-2">
@@ -120,7 +120,7 @@ const BracketTournament = ({
           Semi final
           {tournament?.rounds[1].matches.map((m) => (
             <div
-              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80"
+              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
               onClick={() => handleMatchClick(m.id)}
             >
               <div className="flex flex-col gap-2">
@@ -142,7 +142,7 @@ const BracketTournament = ({
           Final
           {tournament?.rounds[2].matches.map((m) => (
             <div
-              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80"
+              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
               onClick={() => handleMatchClick(m.id)}
             >
               <div className="flex flex-col gap-2">
