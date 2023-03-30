@@ -1,4 +1,5 @@
-import { FC, memo, useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -77,7 +78,7 @@ const Team = ({
 
 export interface DustbinProps {
   accept: string[];
-  onDrop: (item: any) => void;
+  onDrop: () => void;
   teams: Team[];
 }
 
@@ -147,7 +148,7 @@ const SelectTeams = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(`/api/teams`);
-      const data = await result.json();
+      const data = (await result.json()) as Team[];
 
       setTeams(data);
 
@@ -156,8 +157,8 @@ const SelectTeams = () => {
       }
     }
 
-    fetchData();
-  }, []);
+    fetchData().catch(console.error);
+  }, [teams]);
 
   const handleOnDrop = (bin: string, team: Team) => {
     setTeams((prevTeams) => prevTeams.filter((t) => t.slug !== team.slug));
@@ -194,12 +195,12 @@ const SelectTeams = () => {
       </div>
       {selectedTeams.length === maxCounter && (
         <div className="mt-4 flex items-center justify-center">
-          <a
+          <Link
             href="/tournaments/tournament-galactic-showdown"
             className="btn bg-green-bright"
           >
             Create Tournament
-          </a>
+          </Link>
         </div>
       )}
     </div>
@@ -316,7 +317,7 @@ const AllVsAllTournament = ({ onCancel }: { onCancel: () => void }) => {
   );
 };
 
-const createTournament = () => {
+const CreateTournament = () => {
   const [tournamentStyle, setTournamentStyle] = useState<string | null>(null);
   const [selectPlayers, setSelectPlayers] = useState<boolean>(false);
   let content;
@@ -368,4 +369,4 @@ const createTournament = () => {
   );
 };
 
-export default createTournament;
+export default CreateTournament;

@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { teams } from "~/data/data";
 import type { LeaderboardEntry } from "~/types/types";
 

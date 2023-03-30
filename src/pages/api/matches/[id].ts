@@ -4,7 +4,7 @@ import {
   secondRoundMatches,
   thirdRoundMatches,
 } from "~/data/data";
-import { Match } from "~/types/types";
+import type { Match } from "~/types/types";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
