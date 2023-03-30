@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Match as MatchType, Team } from "~/types/types";
+import { BracketTournament, Match as MatchType, Team } from "~/types/types";
 import Match from "./Match";
 import Modal from "./Modal";
 
@@ -68,13 +68,13 @@ const BracketTournament = ({
   slug: string | string[] | undefined;
 }) => {
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
-  const [tournament, setTournament] = useState<Tournament>();
+  const [tournament, setTournament] = useState<BracketTournament>();
   const [matchModalIsOpen, setMatchModalIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(`/api/tournament/${slug}`);
-      const data = (await result.json()) as Tournament;
+      const data = (await result.json()) as BracketTournament;
 
       setTournament(data);
 
@@ -105,78 +105,78 @@ const BracketTournament = ({
         <Match matchId={selectedMatchId} />
       </Modal>
 
-      {tournament === undefined && (
+      {tournament == undefined ? (
         <p className="text-red-normal">No tournament found for this slug</p>
+      ) : (
+        <div className="grid h-full grid-cols-3 gap-2">
+          <div id="round_1" className="flex flex-col justify-between gap-10">
+            Group rounds
+            {tournament.rounds[0]?.matches.map((m: MatchType) => (
+              <div
+                className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
+                onClick={() => handleMatchClick(m.id)}
+              >
+                <div className="flex flex-col gap-2">
+                  <TournamentEntry
+                    team={m.team1}
+                    goals={m.team1Goals}
+                    date={m.end}
+                  />
+                  <TournamentEntry
+                    team={m.team2}
+                    goals={m.team2Goals}
+                    date={m.end}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div id="round_quater_finals" className="flex flex-col gap-2">
+            Semi final
+            {tournament?.rounds[1]?.matches.map((m) => (
+              <div
+                className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
+                onClick={() => handleMatchClick(m.id)}
+              >
+                <div className="flex flex-col gap-2">
+                  <TournamentEntry
+                    team={m.team1}
+                    goals={m.team1Goals}
+                    date={m.end}
+                  />
+                  <TournamentEntry
+                    team={m.team2}
+                    goals={m.team2Goals}
+                    date={m.end}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div id="round_semi_finals" className="flex flex-col gap-2">
+            Final
+            {tournament?.rounds[2]?.matches.map((m) => (
+              <div
+                className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
+                onClick={() => handleMatchClick(m.id)}
+              >
+                <div className="flex flex-col gap-2">
+                  <TournamentEntry
+                    team={m.team1}
+                    goals={m.team1Goals}
+                    date={m.end}
+                  />
+                  <TournamentEntry
+                    team={m.team2}
+                    goals={m.team2Goals}
+                    date={m.end}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
-
-      <div className="grid h-full grid-cols-3 gap-2">
-        <div id="round_1" className="flex flex-col justify-between gap-10">
-          Group rounds
-          {tournament?.rounds[0].matches.map((m: MatchType) => (
-            <div
-              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
-              onClick={() => handleMatchClick(m.id)}
-            >
-              <div className="flex flex-col gap-2">
-                <TournamentEntry
-                  team={m.team1}
-                  goals={m.team1Goals}
-                  date={m.end}
-                />
-                <TournamentEntry
-                  team={m.team2}
-                  goals={m.team2Goals}
-                  date={m.end}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-        <div id="round_quater_finals" className="flex flex-col gap-2">
-          Semi final
-          {tournament?.rounds[1].matches.map((m) => (
-            <div
-              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
-              onClick={() => handleMatchClick(m.id)}
-            >
-              <div className="flex flex-col gap-2">
-                <TournamentEntry
-                  team={m.team1}
-                  goals={m.team1Goals}
-                  date={m.end}
-                />
-                <TournamentEntry
-                  team={m.team2}
-                  goals={m.team2Goals}
-                  date={m.end}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-        <div id="round_semi_finals" className="flex flex-col gap-2">
-          Final
-          {tournament?.rounds[2].matches.map((m) => (
-            <div
-              className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
-              onClick={() => handleMatchClick(m.id)}
-            >
-              <div className="flex flex-col gap-2">
-                <TournamentEntry
-                  team={m.team1}
-                  goals={m.team1Goals}
-                  date={m.end}
-                />
-                <TournamentEntry
-                  team={m.team2}
-                  goals={m.team2Goals}
-                  date={m.end}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </>
   );
 };

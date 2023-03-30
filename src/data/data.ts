@@ -1,4 +1,10 @@
-import { Match, Player, Team, Tournament } from "~/types/types";
+import {
+  BracketTournament,
+  Match,
+  Player,
+  Team,
+  TournamentRound,
+} from "~/types/types";
 
 export const players: Player[] = [
   { id: 1, name: "Luke Skywalker" },
@@ -78,15 +84,15 @@ const firstRoundWinners = firstRoundMatches.filter((match) =>
 export const secondRoundMatches: Match[] = [
   {
     id: 100,
-    team1: firstRoundWinners[0].team1,
-    team2: firstRoundWinners[1].team2,
+    team1: firstRoundWinners[0]?.team1,
+    team2: firstRoundWinners[1]?.team2,
     team1Goals: 10,
     team2Goals: 1,
   } as Match,
   {
     id: 8199,
-    team1: firstRoundWinners[2].team1,
-    team2: firstRoundWinners[3].team2,
+    team1: firstRoundWinners[2]?.team1,
+    team2: firstRoundWinners[3]?.team2,
     team1Goals: 0,
     team2Goals: 10,
   } as Match,
@@ -99,14 +105,14 @@ const secondRoundWinners = secondRoundMatches.filter((match) =>
 export const thirdRoundMatches: Match[] = [
   {
     id: 283,
-    team1: secondRoundWinners[0].team1,
-    team2: secondRoundWinners[1].team2,
+    team1: secondRoundWinners[0]?.team1,
+    team2: secondRoundWinners[1]?.team2,
     team1Goals: 8,
     team2Goals: 1,
   } as Match,
 ];
 
-export const tournaments: Tournament[] = [
+export const tournaments: BracketTournament[] = [
   {
     id: 1,
     name: "Galactic Showdown (16 player bracket tournament)",
@@ -117,16 +123,16 @@ export const tournaments: Tournament[] = [
       {
         tournamentId: 1,
         matches: firstRoundMatches,
-      },
+      } as TournamentRound,
       {
-        tournamentId: 1,
+        tournamentId: 2,
         matches: secondRoundMatches,
-      },
+      } as TournamentRound,
       {
-        tournamentId: 1,
+        tournamentId: 3,
         matches: thirdRoundMatches,
-      },
+      } as TournamentRound,
     ],
     winner: null,
-  } as Tournament,
+  } as BracketTournament,
 ];
