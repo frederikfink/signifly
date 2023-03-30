@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LeaderboardEntry } from "~/types/types";
+import { type LeaderboardEntry } from "~/types/types";
 
 const Leaderboard = ({ limit }: { limit: number }) => {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>(
@@ -9,10 +9,10 @@ const Leaderboard = ({ limit }: { limit: number }) => {
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(`/api/leaderboard?limit=${limit}`);
-      const data = await result.json();
+      const data = (await result.json()) as LeaderboardEntry[];
       setLeaderboardData(data);
     }
-    fetchData();
+    fetchData().catch(console.error);
   }, [limit]);
 
   const handleLinkClick = (url: string) => {
@@ -48,6 +48,7 @@ const Leaderboard = ({ limit }: { limit: number }) => {
         {leaderboardData.map((l, i) => (
           <tr
             className="cursor-pointer rounded hover:bg-base-50 dark:hover:bg-base-800"
+            key={i}
             onClick={() => handleLinkClick("/team")}
           >
             <th className="py-2 pr-4">

@@ -1,4 +1,4 @@
-import {
+import type {
   BracketTournament,
   Match,
   Player,
@@ -38,23 +38,16 @@ const teamNames = [
 
 export const teams: Team[] = teamNames
   .map((name, i) => {
-    let player1 = players[i];
-    let player2 = players[15 - i];
-
-    if (player1 !== undefined || player2 !== undefined) {
-      return {
-        name: name,
-        slug: `team-${name.toLowerCase().replace(/ /g, "-")}`,
-        player1: player1,
-        player2: player2,
-      } as Team;
-    }
+    return {
+      name: name,
+      slug: `team-${name.toLowerCase().replace(/ /g, "-")}`,
+      player1: players[i],
+      player2: players[15 - i],
+    } as Team;
   })
   .filter((team) => team !== undefined) as Team[];
 
 const selectedTeams = teams.slice(0, 4);
-const shuffledTeams = selectedTeams.sort((a, b) => 0.5 - Math.random());
-
 const today = new Date();
 const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 

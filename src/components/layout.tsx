@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 
 interface NavLink {
   href: string;
