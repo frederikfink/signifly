@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Match } from "~/types/types";
+import Confetti from "./Confetti";
 
 const Match = ({ matchId }: { matchId: number | null }) => {
   const [match, setMatch] = useState<Match | null>(null);
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,10 +19,29 @@ const Match = ({ matchId }: { matchId: number | null }) => {
     console.log(matchId);
   }, []);
 
+  useEffect(() => {}, [showConfetti]);
+
+  const handleAddGoal = (team: "team1" | "team2") => {
+    setShowConfetti(false);
+    if (match !== null) {
+      const updatedMatch = { ...match };
+
+      if (team === "team1") updatedMatch.team1Goals += 1;
+      if (team === "team2") updatedMatch.team2Goals += 1;
+
+      setMatch(updatedMatch);
+
+      if (updatedMatch.team1Goals == 10 || updatedMatch.team2Goals == 10) {
+        setShowConfetti(true);
+      }
+    }
+  };
+
   return (
     <>
       {match !== null && (
         <>
+          {showConfetti && <Confetti />}
           <div className="mb-4 flex w-full items-center justify-between border-b border-base-700 pb-4">
             <div className="text-left">
               <h5>{match.team1.name}</h5>
@@ -42,12 +63,22 @@ const Match = ({ matchId }: { matchId: number | null }) => {
           </div>
           <div className="flex justify-between">
             <div className="flex gap-2">
-              <button className="btn bg-green-bright">Add goal</button>
+              <button
+                onClick={() => handleAddGoal("team1")}
+                className="btn bg-green-bright"
+              >
+                Add goal
+              </button>
               <button className="btn text-base-0">Remove goal</button>
             </div>
             <div className="flex gap-2">
               <button className="btn text-base-0">Remove goal</button>
-              <button className="btn bg-green-bright">Add goal</button>
+              <button
+                onClick={() => handleAddGoal("team2")}
+                className="btn bg-green-bright"
+              >
+                Add goal
+              </button>
             </div>
           </div>
         </>

@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { firstRoundMatches, tournaments } from "~/data/data";
+import {
+  firstRoundMatches,
+  secondRoundMatches,
+  thirdRoundMatches,
+  tournaments,
+} from "~/data/data";
 import { Match } from "~/types/types";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -10,5 +15,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   res
     .status(200)
-    .json(firstRoundMatches.find((match) => match.id === idNumber) as Match);
+    .json(
+      [...firstRoundMatches, ...secondRoundMatches, ...thirdRoundMatches].find(
+        (match) => match.id === idNumber
+      ) as Match
+    );
 }

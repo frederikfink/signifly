@@ -75,16 +75,16 @@ const firstRoundWinners = firstRoundMatches.filter((match) =>
   match.team1Goals === 10 ? match.team1 : match.team2
 );
 
-const secondRoundMatches: Match[] = [
+export const secondRoundMatches: Match[] = [
   {
-    id: 999,
+    id: 100,
     team1: firstRoundWinners[0].team1,
     team2: firstRoundWinners[1].team2,
     team1Goals: 10,
     team2Goals: 1,
   } as Match,
   {
-    id: 999,
+    id: 8199,
     team1: firstRoundWinners[2].team1,
     team2: firstRoundWinners[3].team2,
     team1Goals: 0,
@@ -96,12 +96,12 @@ const secondRoundWinners = secondRoundMatches.filter((match) =>
   match.team1Goals === 10 ? match.team1 : match.team2
 );
 
-const thirdRoundMatches: Match[] = [
+export const thirdRoundMatches: Match[] = [
   {
-    id: 999,
+    id: 283,
     team1: secondRoundWinners[0].team1,
     team2: secondRoundWinners[1].team2,
-    team1Goals: 10,
+    team1Goals: 8,
     team2Goals: 1,
   } as Match,
 ];

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { useEffect } from "react";
+
 import { tournaments } from "~/data/data";
 import { Tournament } from "~/types/types";
 
