@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import RootLayout from "~/components/layout";
-import { Tournament } from "~/types/types";
+import { BracketTournament } from "~/types/types";
 
 const Tournaments = () => {
-  const [tournaments, setTournaments] = useState<Tournament[]>([]);
+  const [tournaments, setTournaments] = useState<BracketTournament[]>([]);
 
   useEffect(() => {
     async function fetchData() {
