@@ -19,9 +19,9 @@ const Modal = ({
           <div className="min-w-[700px] rounded-xl bg-base-0 p-7 shadow-md dark:bg-base-900">
             <div className="mb-4 flex items-center justify-between border-b border-base-700 pb-4">
               <h3 className="text-green-bright">{title}</h3>
-              <button onClick={onClose} className="btn -mr-5 text-base-100">
+              <button onClick={onClose} className="btn -mr-5">
                 <svg
-                  className="fill-base-100"
+                  className="dark:fill-base-100"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"

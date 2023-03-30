@@ -18,7 +18,7 @@ const SelectStyle = ({
     <>
       <button
         onClick={() => handleNextStepClick("bracket-tournament")}
-        className="btn-card rounded-xl border p-6 text-left backdrop-blur dark:border-base-700 dark:bg-base-900/80"
+        className="btn-card rounded-xl border border-base-300 bg-base-0/80 p-6 text-left backdrop-blur dark:border-base-700 dark:bg-base-900/80"
       >
         <h3>Bracket-style tournament</h3>
         <p className="text-sm text-base-500">Simple knockout tournamnet</p>
@@ -27,7 +27,7 @@ const SelectStyle = ({
       </button>
       <button
         onClick={() => handleNextStepClick("allvsall-tournament")}
-        className="btn-card rounded-xl border p-6 text-left backdrop-blur dark:border-base-700 dark:bg-base-900/80"
+        className="btn-card rounded-xl border border-base-300 bg-base-0/80 p-6 text-left backdrop-blur dark:border-base-700 dark:bg-base-900/80"
       >
         <h3>All vs All tournament</h3>
         <p className="text-sm text-base-500">Every team plays every team</p>
@@ -66,7 +66,7 @@ const Team = ({
     <div
       ref={drag}
       data-testid={`team`}
-      className="w-full cursor-pointer rounded border border-base-700 bg-base-800 p-4 active:scale-[90%] active:border-dashed active:opacity-80"
+      className="w-full cursor-pointer rounded border border-base-300 bg-base-50 p-4 active:scale-[90%] active:border-dashed active:opacity-80 dark:border-base-700 dark:bg-base-800"
     >
       <h5>{team.name}</h5>
       <p className="text-sm text-base-500">
@@ -110,8 +110,8 @@ const TeamBin = ({
     <div
       className={`${
         isActive
-          ? "border-dashed border-yellow-normal bg-yellow-light/10"
-          : "border-base-700 bg-base-900/80"
+          ? "border-dashed border-yellow-normal bg-yellow-light/50 dark:bg-yellow-light/10"
+          : "border-base-300 bg-base-0/80 dark:border-base-700 dark:bg-base-900/80"
       } w-96 rounded-xl border p-7`}
       ref={drop}
       data-testid="dustbin"
@@ -130,7 +130,7 @@ const TeamBin = ({
           </h5>
         )}
       </div>
-      <hr className="my-5 border border-base-700" />
+      <hr className="my-5 border border-base-300 dark:border-base-700" />
       <div className="flex max-h-[700px] min-h-[700px] flex-col-reverse gap-2 overflow-y-auto">
         {teams.map((t) => (
           <Team key={t.slug} team={t} onDrop={() => onDrop(bin, t)} />
@@ -225,7 +225,7 @@ const BracketTournament = ({
   };
   return (
     <div className="w-96">
-      <div className="rounded-xl border border-base-700 bg-base-900/80 p-7">
+      <div className="rounded-xl border border-base-300 bg-base-0/80 p-7 dark:border-base-700 dark:bg-base-900/80">
         <div className="mb-6">
           <label className="label">Tournament name</label>
           <input
@@ -237,7 +237,7 @@ const BracketTournament = ({
           ></input>
         </div>
         <ul className="flex flex-col gap-4">
-          <li className="flex items-center rounded border bg-base-800 pl-4 duration-150 active:scale-[95%] dark:border-base-700">
+          <li className="flex items-center rounded border border-base-300 bg-base-50 pl-4 transition-transform duration-150 active:scale-[95%] dark:border-base-700 dark:bg-base-800">
             <input
               id="4-teams-radio"
               className="h-4 w-4 focus:ring-yellow-normal"
@@ -253,7 +253,7 @@ const BracketTournament = ({
               <p className="text-sm text-base-500">8 Players</p>
             </label>
           </li>
-          <li className="flex items-center rounded border bg-base-800 pl-4 transition-transform duration-150 active:scale-[95%] dark:border-base-700">
+          <li className="flex items-center rounded border border-base-300 bg-base-50 pl-4 transition-transform duration-150 active:scale-[95%] dark:border-base-700 dark:bg-base-800">
             <input
               id="8-teams-radio"
               className="h-4 w-4 focus:ring-yellow-normal"
@@ -269,7 +269,7 @@ const BracketTournament = ({
               <p className="text-sm text-base-500">16 Players</p>
             </label>
           </li>
-          <li className="flex items-center rounded border bg-base-800 pl-4 duration-150 active:scale-[95%] dark:border-base-700">
+          <li className="flex items-center rounded border border-base-300 bg-base-50 pl-4 transition-transform duration-150 active:scale-[95%] dark:border-base-700 dark:bg-base-800">
             <input
               id="16-player-radio"
               className="h-4 w-4 focus:ring-yellow-normal"
