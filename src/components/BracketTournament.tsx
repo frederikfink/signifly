@@ -108,7 +108,7 @@ const BracketTournament = ({ slug }: { slug: string }) => {
       {tournament == undefined ? (
         <p className="text-red-normal">No tournament found for this slug</p>
       ) : (
-        <div className="grid h-full grid-cols-3 gap-2">
+        <div className="grid h-full min-w-[1000px] grid-cols-3 gap-2">
           <div id="round_1" className="flex flex-col justify-between gap-10">
             Group rounds
             {tournament.rounds[0]?.matches.map((m: MatchType) => (
