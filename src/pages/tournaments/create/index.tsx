@@ -1,6 +1,9 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { FC, memo, useState } from "react";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import RootLayout from "~/components/layout";
+import { Team } from "~/types/types";
 
 const SelectStyle = ({
   onStyleSelect,
@@ -33,15 +36,127 @@ const SelectStyle = ({
   );
 };
 
-const SelectPlayers = ({}) => {
+const ItemTypes = {
+  Team: "team",
+  SelectedTeam: "selected-team",
+};
+
+const Team = ({
+  onDrop,
+  team,
+}: {
+  onDrop: (team: Team) => void;
+  team: Team;
+}) => {
+  const [{}, drag] = useDrag(() => ({
+    type: ItemTypes.Team,
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      if (item && dropResult) {
+        onDrop(team);
+      }
+    },
+    collect: (monitor) => ({
+      handlerId: monitor.getHandlerId(),
+    }),
+  }));
+
+  return (
+    <div
+      ref={drag}
+      data-testid={`team`}
+      className="w-full cursor-pointer rounded border border-base-700 bg-base-800 p-4 active:scale-[90%] active:border-dashed active:opacity-80"
+    >
+      <h3>Galactic Empire</h3>
+      <p className="text-sm text-base-500">Leia Organa, Mace Windu</p>
+    </div>
+  );
+};
+
+export interface DustbinProps {
+  accept: string[];
+  onDrop: (item: any) => void;
+  teams: Team[];
+}
+
+const TeamBin = ({
+  accept,
+  teams,
+  bin,
+  onDrop,
+}: {
+  onDrop: (bin: string, team: Team) => void;
+  accept: string;
+  bin: string;
+  teams: Team[];
+}) => {
+  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+    accept: accept,
+    drop: () => ondrop,
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }));
+
+  const isActive = canDrop && isOver;
+
+  return (
+    <div
+      className={`${
+        isActive
+          ? "border-dashed border-yellow-normal bg-yellow-light/10"
+          : "border-base-700 bg-base-900/80"
+      } w-96 overflow-y-auto rounded-xl border p-7`}
+      ref={drop}
+      data-testid="dustbin"
+    >
+      <h3>Teams</h3>
+      {teams.map((t) => (
+        <Team team={t} onDrop={() => onDrop(bin, t)} />
+      ))}
+    </div>
+  );
+};
+
+const SelectTeams = () => {
+  const team1: Team = {
+    name: "galactic empire",
+    slug: "galactic-empire",
+    player1: null,
+    player2: null,
+  } as Team;
+
+  const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
+  const [teams, setTeams] = useState<Team[]>([team1]);
+
+  const handleOnDrop = (bin: string, team: Team) => {
+    setSelectedTeams(teams.filter((t) => t.slug !== team.slug));
+    setTeams(teams.filter((t) => t.slug !== team.slug));
+
+    if (bin == "selectedTeams") {
+      setTeams([...teams, team]);
+    } else {
+      setSelectedTeams([...selectedTeams, team]);
+    }
+  };
+
   return (
     <div className="grid grid-cols-2 gap-4">
-      <div className="overflow-y-auto rounded-xl border border-base-700 bg-base-900/80 p-7">
-        hello
-      </div>
-      <div className="overflow-y-auto rounded-xl border border-base-700 bg-base-900/80 p-7">
-        hello
-      </div>
+      <TeamBin
+        key={1}
+        teams={teams}
+        accept={ItemTypes.Team}
+        bin={"teams"}
+        onDrop={handleOnDrop}
+      />
+      <TeamBin
+        key={2}
+        teams={selectedTeams}
+        accept={ItemTypes.Team}
+        bin={"selectedTeams"}
+        onDrop={handleOnDrop}
+      />
     </div>
   );
 };
@@ -66,6 +181,7 @@ const BracketTournament = ({
         <div className="mb-6">
           <label className="label">Tournament name</label>
           <input
+            required
             type="text"
             name="tournament_name"
             placeholder="Give the tournament an awesome name"
@@ -174,7 +290,11 @@ const createTournament = () => {
   };
 
   if (selectPlayers) {
-    content = <SelectPlayers />;
+    content = (
+      <DndProvider backend={HTML5Backend}>
+        <SelectTeams />
+      </DndProvider>
+    );
   } else {
     content = (
       <>
