@@ -1,12 +1,6 @@
 import { type NextPage } from "next";
 import RootLayout from "~/components/layout";
 import Leaderboard from "~/components/Leaderboard";
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 const Home: NextPage = () => {
   return (

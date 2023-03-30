@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import {
   firstRoundMatches,
   secondRoundMatches,
   thirdRoundMatches,
-  tournaments,
 } from "~/data/data";
 import { Match } from "~/types/types";
 

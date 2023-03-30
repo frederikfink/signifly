@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { teams } from "~/data/data";
-import { LeaderboardEntry, Player, Team } from "~/types/types";
+import type { LeaderboardEntry } from "~/types/types";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const leaderBoardEntries: LeaderboardEntry[] = [

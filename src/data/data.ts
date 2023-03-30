@@ -45,7 +45,7 @@ export const teams: Team[] = teamNames
       player2: players[15 - i],
     } as Team;
   })
-  .filter((team) => team !== undefined) as Team[];
+  .filter((team) => team !== undefined);
 
 const selectedTeams = teams.slice(0, 4);
 const today = new Date();
