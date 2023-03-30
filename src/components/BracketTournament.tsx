@@ -84,7 +84,7 @@ const BracketTournament = ({ slug }: { slug: string }) => {
     }
 
     fetchData().catch(console.error);
-  }, [slug]);
+  }, [tournament]);
 
   const handleModalClose = () => {
     setMatchModalIsOpen(false);
