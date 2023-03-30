@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { type FunctionComponent } from "react";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 interface NavLink {
   href: string;
@@ -43,7 +46,9 @@ export default function RootLayout({
           </li>
         </ul>
       </nav>
-      <main className="h-full grow overflow-y-auto">{children}</main>
+      <main className={`h-full grow overflow-y-auto ${inter.className}`}>
+        {children}
+      </main>
     </div>
   );
 }
