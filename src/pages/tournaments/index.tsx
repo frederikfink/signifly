@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import RootLayout from "~/components/layout";
-import { BracketTournament } from "~/types/types";
+import type { BracketTournament } from "~/types/types";
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState<BracketTournament[]>([]);
@@ -8,11 +9,11 @@ const Tournaments = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(`/api/tournament`);
-      const data = await result.json();
+      const data = (await result.json()) as BracketTournament[];
 
       setTournaments(data);
     }
-    fetchData();
+    fetchData().catch(console.error);
   }, []);
 
   return (
@@ -20,17 +21,17 @@ const Tournaments = () => {
       <main className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <h1 className="my-32">Tournaments</h1>
-          <a
+          <Link
             href="/tournaments/create"
             className="btn bg-green-bright uppercase text-base-0"
           >
             Create
-          </a>
+          </Link>
         </div>
         {tournaments.map((t) => (
-          <a key={t.slug} href={`/tournaments/${t.slug}`}>
+          <Link key={t.slug} href={`/tournaments/${t.slug}`}>
             {t.name}
-          </a>
+          </Link>
         ))}
       </main>
     </RootLayout>
