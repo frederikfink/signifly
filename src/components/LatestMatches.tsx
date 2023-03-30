@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react";
 
-const LatestMatches = ({ limit }: { limit: number }) => {
-  const [LatestMatchesData, setLatestMatchesData] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await fetch(`/api/LatestMatches?limit=${limit}`);
-      const data = await result.json();
-      setLatestMatchesData(data);
-    }
-    fetchData();
-  }, [limit]);
-
+const LatestMatches = () => {
   return (
     <table className="w-full">
       <tbody>

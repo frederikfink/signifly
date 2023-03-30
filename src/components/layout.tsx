@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FunctionComponent } from "react";
 
 interface NavLink {
@@ -25,12 +26,12 @@ export default function RootLayout({
     <div className="h-screen w-full flex-col">
       <nav className="flex h-[64px] flex-col justify-center bg-base-900 text-base-0 dark:bg-base-1000">
         <ul className="container mx-auto flex items-center gap-2 px-4">
-          <a
+          <Link
             href="/"
             className="mr-auto text-xl transition-all duration-150 hover:text-purple-normal"
           >
             Signifly
-          </a>
+          </Link>
           <li>
             <NavLink href="/tournaments" label="Tournaments" />
           </li>
