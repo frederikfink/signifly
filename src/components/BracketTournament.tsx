@@ -102,7 +102,7 @@ const BracketTournament = ({
         isOpen={matchModalIsOpen}
         onClose={handleModalClose}
       >
-        <Match matchId={selectedMatchId} />
+        <Match matchId={selectedMatchId ?? 0} />
       </Modal>
 
       {tournament == undefined ? (

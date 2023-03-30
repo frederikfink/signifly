@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Match } from "~/types/types";
 import Confetti from "./Confetti";
 
-const Match = ({ matchId }: { matchId: number | null }) => {
+const Match = ({ matchId }: { matchId: number }) => {
   const [match, setMatch] = useState<Match | null>(null);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
@@ -18,8 +18,6 @@ const Match = ({ matchId }: { matchId: number | null }) => {
       fetchData().catch(console.error);
     }
   }, [matchId]);
-
-  useEffect(() => {}, [showConfetti]);
 
   const handleAddGoal = (team: "team1" | "team2") => {
     setShowConfetti(false);
