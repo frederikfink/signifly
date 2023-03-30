@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { BracketTournament, Match as MatchType, Team } from "~/types/types";
+import {
+  BracketTournament,
+  type Match as MatchType,
+  type Team,
+} from "~/types/types";
 import Match from "./Match";
 import Modal from "./Modal";
 
@@ -62,11 +66,7 @@ const TournamentEntry = ({
   </>
 );
 
-const BracketTournament = ({
-  slug,
-}: {
-  slug: string | string[] | undefined;
-}) => {
+const BracketTournament = ({ slug }: { slug: string }) => {
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
   const [tournament, setTournament] = useState<BracketTournament>();
   const [matchModalIsOpen, setMatchModalIsOpen] = useState<boolean>(false);
@@ -113,6 +113,7 @@ const BracketTournament = ({
             Group rounds
             {tournament.rounds[0]?.matches.map((m: MatchType) => (
               <div
+                key={m.id}
                 className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
                 onClick={() => handleMatchClick(m.id)}
               >
@@ -135,6 +136,7 @@ const BracketTournament = ({
             Semi final
             {tournament?.rounds[1]?.matches.map((m) => (
               <div
+                key={m.id}
                 className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
                 onClick={() => handleMatchClick(m.id)}
               >
@@ -157,6 +159,7 @@ const BracketTournament = ({
             Final
             {tournament?.rounds[2]?.matches.map((m) => (
               <div
+                key={m.id}
                 className="flex grow cursor-pointer flex-col justify-center gap-4 rounded-lg p-3 backdrop-blur-sm transition-all duration-150 hover:bg-base-0/80 dark:hover:bg-base-900/60"
                 onClick={() => handleMatchClick(m.id)}
               >
