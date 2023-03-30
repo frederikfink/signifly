@@ -7,16 +7,16 @@ const Match = ({ matchId }: { matchId: number | null }) => {
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const result = await fetch(`/api/matches/${matchId}`);
-      const data = (await result.json()) as Match;
+      const match = (await result.json()) as Match;
 
-      setMatch(data);
-    }
+      setMatch(match);
+    };
+
     if (matchId !== null) {
-      fetchData();
+      fetchData().catch(console.error);
     }
-    console.log(matchId);
   }, []);
 
   useEffect(() => {}, [showConfetti]);
