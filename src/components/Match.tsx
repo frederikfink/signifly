@@ -17,7 +17,7 @@ const Match = ({ matchId }: { matchId: number | null }) => {
     if (matchId !== null) {
       fetchData().catch(console.error);
     }
-  }, []);
+  }, [matchId]);
 
   useEffect(() => {}, [showConfetti]);
 
