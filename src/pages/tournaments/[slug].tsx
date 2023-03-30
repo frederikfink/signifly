@@ -2,8 +2,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import BracketTournament from "~/components/BracketTournament";
 import RootLayout from "~/components/layout";
-import Match from "~/components/Match";
-import Modal from "~/components/Modal";
 
 const Tournament = () => {
   const router = useRouter();
@@ -19,7 +17,9 @@ const Tournament = () => {
   return (
     <RootLayout>
       <main className="container mx-auto">
-        {isReady && <BracketTournament slug={slug}></BracketTournament>}
+        {isReady && (
+          <BracketTournament slug={(slug as string) ?? ""}></BracketTournament>
+        )}
       </main>
     </RootLayout>
   );

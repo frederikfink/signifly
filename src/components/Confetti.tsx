@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 
-export default () => {
+const ConfettiWrapper = () => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [windowHeight, setWindowHeight] = useState<number>(0);
 
@@ -21,3 +21,5 @@ export default () => {
   }, []);
   return <Confetti width={windowWidth} height={windowHeight} />;
 };
+
+export default ConfettiWrapper;
