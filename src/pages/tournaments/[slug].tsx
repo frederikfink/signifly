@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import BracketTournament from "~/components/BracketTournament";
-import RootLayout from "~/components/layout";
+import BracketTournament from "~/components/tournament/BracketTournament";
+import RootLayout from "~/components/utility/layout";
 
 const Tournament = () => {
   const router = useRouter();

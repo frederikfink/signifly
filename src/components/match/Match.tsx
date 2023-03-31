@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Match } from "~/types/types";
-import Confetti from "./Confetti";
+import Confetti from "../utility/Confetti";
 
 const Match = ({ matchId }: { matchId: number }) => {
   const [match, setMatch] = useState<Match | null>(null);

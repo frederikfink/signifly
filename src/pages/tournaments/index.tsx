@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import RootLayout from "~/components/layout";
+import RootLayout from "~/components/utility/layout";
 import type { BracketTournament } from "~/types/types";
 
 const Tournaments = () => {

@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
-import RootLayout from "~/components/layout";
-import Leaderboard from "~/components/Leaderboard";
+import RootLayout from "~/components/utility/layout";
+import Leaderboard from "~/components/leaderboard/Leaderboard";
 
 const Home: NextPage = () => {
   return (
@@ -28,13 +28,6 @@ const Home: NextPage = () => {
             </div>
             <Leaderboard limit={5}></Leaderboard>
           </div>
-
-          {/* <div>
-            <div className="flex gap-2">
-              <h3 className="mb-6 text-xl">Latest matches</h3>
-            </div>
-            <LatestMatches limit={5}></LatestMatches>
-          </div> */}
         </div>
       </main>
     </RootLayout>

@@ -4,8 +4,8 @@ import {
   type Match as MatchType,
   type Team,
 } from "~/types/types";
-import Match from "./Match";
-import Modal from "./Modal";
+import Match from "../match/Match";
+import Modal from "../utility/Modal";
 
 // quick and dirty formatting
 // should probably look into fixing this
